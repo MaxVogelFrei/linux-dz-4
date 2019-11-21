@@ -33,12 +33,25 @@
 
 	mount -o remount,rw /
 
+получаю доступ на запись к ФС
+
 	touch /root/file
 
 	rm file
 
 
 #### Способ 2
+
+Перехожу в строку linux16
+
+из нее убираю опцию console=ttyS0,115200n8
+
+в конец добавляю rd.break
+
+нажимаю ctrl-x и после загрузки получаю консоль
+
+![Screen3](VirtualBox_linux-dz-4_lvm_1574089751254_11621_20_11_2019_17_19_25.png)
+
 
 #### Способ 3
 
@@ -50,5 +63,4 @@
 
 
 
-![Screen2](VirtualBox_linux-dz-4_lvm_1574089751254_11621_20_11_2019_17_19_25.png)
-![Screen3](VirtualBox_linux-dz-4_lvm_1574260838984_47690_20_11_2019_18_33_52.png)
+![Screen4](VirtualBox_linux-dz-4_lvm_1574260838984_47690_20_11_2019_18_33_52.png)
