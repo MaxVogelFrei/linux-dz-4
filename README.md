@@ -100,12 +100,14 @@
 
 ### Добавить модуль в initrd
 
-Создаю папку для своего модуля\
+Создаю папку для своего модуля
+
 		[root@lvm ~]# mkdir /usr/lib/dracut/modules.d/01test
 		[root@lvm ~]# cd /usr/lib/dracut/modules.d/01test
-создаю файлы скриптов
 
-	установщик\
+создаю файлы скриптов\
+установщик
+
 		[root@lvm 01test]# vi module-setup.sh
 		[root@lvm 01test]# cat module-setup.sh
 		#!/bin/bash
@@ -122,7 +124,8 @@
 		    inst_hook cleanup 00 "${moddir}/test.sh"
 		}
 
-	сам скрипт\
+сам скрипт
+
 		[root@lvm 01test]# vi test.sh
 		[root@lvm 01test]# cat test.sh
 		#!/bin/bash
@@ -146,7 +149,8 @@
 		sleep 10
 		echo " continuing...."
 
-пересобираю образ initrd\
+пересобираю образ initrd
+
 		[root@lvm 01test]# dracut -f -v
 		*** Creating image file done ***
 		*** Creating initramfs image file '/boot/initramfs-3.10.0-862.2.3.el7.x86_64.img' done ***
