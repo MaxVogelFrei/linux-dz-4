@@ -92,6 +92,61 @@
 		*** Creating image file done ***
 		*** Creating initramfs image file '/boot/initramfs-3.10.0-862.2.3.el7.x86_64.img' done ***
 
+перезапускаю машину, после включения проверяю имя VG
+
+		[root@lvm ~]# vgs
+		  VG       #PV #LV #SN Attr   VSize   VFree
+		  OtusRoot   1   2   0 wz--n- <38.97g    0 
+
 ### Добавить модуль в initrd
+
+		[root@lvm ~]# mkdir /usr/lib/dracut/modules.d/01test
+		[root@lvm ~]# cd /usr/lib/dracut/modules.d/01test
+		[root@lvm 01test]# touch modeule-setup.sh
+		[root@lvm 01test]# touch test.sh
+		[root@lvm 01test]# vi module-setup.sh
+		[root@lvm 01test]# cat module-setup.sh
+		#!/bin/bash
+		
+		check() {
+		    return 0
+		}
+		
+		depends() {
+		    return 0
+		}
+		
+		install() {
+		    inst_hook cleanup 00 "${moddir}/test.sh"
+		}
+		[root@lvm 01test]# vi test.sh
+		[root@lvm 01test]# cat test.sh
+		#!/bin/bash
+		
+		exec 0<>/dev/console 1<>/dev/console 2<>/dev/console
+		cat <<'msgend'
+		Hello! You are in dracut module!
+		 ___________________
+		< I'm dracut module >
+		 -------------------
+		   \
+		    \
+		        .--.
+		       |o_o |
+		       |:_/ |
+		      //   \ \
+		     (|     | )
+		    /'\_   _/`\
+		    \___)=(___/
+		msgend
+		sleep 10
+		echo " continuing...."
+		
+		[root@lvm 01test]# dracut -f -v
+		*** Creating image file done ***
+		*** Creating initramfs image file '/boot/initramfs-3.10.0-862.2.3.el7.x86_64.img' done ***
+		
+убираю опции rhgb quiet из файлов /etc/default/grub и /boot/grub2/grub.cfg\
+перезапускаюсь, при старте вижу, что модуль работает\
 
 ![Screen4](VirtualBox_linux-dz-4_lvm_1574260838984_47690_20_11_2019_18_33_52.png)
