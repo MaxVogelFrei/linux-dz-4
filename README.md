@@ -100,10 +100,12 @@
 
 ### Добавить модуль в initrd
 
+Создаю папку для своего модуля\
 		[root@lvm ~]# mkdir /usr/lib/dracut/modules.d/01test
 		[root@lvm ~]# cd /usr/lib/dracut/modules.d/01test
-		[root@lvm 01test]# touch modeule-setup.sh
-		[root@lvm 01test]# touch test.sh
+создаю файлы скриптов
+
+	установщик\
 		[root@lvm 01test]# vi module-setup.sh
 		[root@lvm 01test]# cat module-setup.sh
 		#!/bin/bash
@@ -119,6 +121,8 @@
 		install() {
 		    inst_hook cleanup 00 "${moddir}/test.sh"
 		}
+
+	сам скрипт\
 		[root@lvm 01test]# vi test.sh
 		[root@lvm 01test]# cat test.sh
 		#!/bin/bash
@@ -141,12 +145,13 @@
 		msgend
 		sleep 10
 		echo " continuing...."
-		
+
+пересобираю образ initrd\
 		[root@lvm 01test]# dracut -f -v
 		*** Creating image file done ***
 		*** Creating initramfs image file '/boot/initramfs-3.10.0-862.2.3.el7.x86_64.img' done ***
 		
-убираю опции rhgb quiet из файлов /etc/default/grub и /boot/grub2/grub.cfg\
-перезапускаюсь, при старте вижу, что модуль работает\
+убираю опции rhgb quiet из /etc/default/grub и /boot/grub2/grub.cfg\
+перезапускаюсь, при старте вижу, что модуль работает
 
 ![Screen4](VirtualBox_linux-dz-4_lvm_1574260838984_47690_20_11_2019_18_33_52.png)
