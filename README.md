@@ -63,9 +63,8 @@
 		[root@lvm ~]# vgrename VolGroup00 OtusRoot
 		  Volume group "VolGroup00" successfully renamed to "OtusRoot"
 
-Меняю название VG в конфигурационных файлах
+Меняю название VG в /etc/fstab , /etc/default/grub и /boot/grub2/grub.cfg
 
-		[root@lvm ~]# vi /etc/fstab
 		[root@lvm ~]# cat /etc/fstab
 		..
 		/dev/mapper/OtusRoot-LogVol00 /                       xfs     defaults        0 0
@@ -73,14 +72,11 @@
 		/dev/mapper/OtusRoot-LogVol01 swap                    swap    defaults        0 0
 		..
 
-		[root@lvm ~]# vi /etc/default/grub
 		[root@lvm ~]# cat /etc/default/grub
 		..
 		GRUB_CMDLINE_LINUX="no_timer_check console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 elevator=noop crashkernel=auto rd.lvm.lv=OtusRoot/LogVol00 rd.lvm.lv=OtusRoot/LogVol01 rhgb quiet"
 		..
 
-
-		[root@lvm ~]# vi /boot/grub2/grub.cfg
 		[root@lvm ~]# cat /boot/grub2/grub.cfg
 		..
 			linux16 /vmlinuz-3.10.0-862.2.3.el7.x86_64 root=/dev/mapper/OtusRoot-LogVol00 ro no_timer_check console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 elevator=noop crashkernel=auto rd.lvm.lv=OtusRoot/LogVol00 rd.lvm.lv=OtusRoot/LogVol01 rhgb quiet 
